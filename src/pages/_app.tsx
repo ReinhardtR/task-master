@@ -21,7 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <div className={`${inter.variable} font-sans flex flex-col min-h-screen`}>
         <Header />
-        <main className="flex-1">
+        <main className="flex flex-grow bg-gray-background">
           <Component {...pageProps} />
         </main>
       </div>
