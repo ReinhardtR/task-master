@@ -1,6 +1,6 @@
 // @ts-check
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { env } = require("./server/env");
+const { env } = require("./src/env/env");
 
 /**
  * @template {import('next').NextConfig} T
