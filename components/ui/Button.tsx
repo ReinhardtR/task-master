@@ -11,10 +11,10 @@ const styles = cva("rounded font-medium tracking-wide text-sm", {
       ],
       secondary: [
         "bg-black",
-        "text-gray hover:text-white",
-        "border border-gray hover:border-white",
+        "text-gray-500 hover:text-white",
+        "border border-gray-500 hover:border-white",
       ],
-      ghost: ["bg-transparent", "text-gray hover:text-white font-normal"],
+      ghost: ["bg-transparent", "text-gray-500 hover:text-white font-normal"],
     },
     size: {
       sm: "py-1 px-3",
