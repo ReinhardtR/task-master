@@ -3,13 +3,13 @@ import { forwardRef, Ref } from "react";
 
 type Props = {
   id: string;
-  name: string;
+  title: string;
   style?: React.CSSProperties;
   className?: string;
 };
 
 export const Task = forwardRef<HTMLDivElement, Props>(
-  ({ id, name, className, ...props }, ref) => {
+  ({ id, title, className, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -20,7 +20,7 @@ export const Task = forwardRef<HTMLDivElement, Props>(
         {...props}
       >
         <p className="font-bold text-gray-text">{id}</p>
-        <p>{name}</p>
+        <p>{title}</p>
       </div>
     );
   }

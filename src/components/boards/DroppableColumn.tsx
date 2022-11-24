@@ -1,4 +1,6 @@
+import { UniqueIdentifier } from "@dnd-kit/core";
 import {
+  hasSortableData,
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
@@ -7,23 +9,19 @@ import { Column } from "./Column";
 
 type Props = {
   id: string;
-  items: string[];
+  index: number;
+  items: UniqueIdentifier[];
   children: React.ReactNode;
 };
 
-export function DroppableColumn({ id, items, children }: Props) {
-  const { active, over, setNodeRef } = useSortable({
-    id,
-    data: {
-      type: "column",
-      children: items,
-    },
-  });
+export function DroppableColumn({ id, index, items, children }: Props) {
+  const { active, over, setNodeRef } = useSortable({ id });
 
-  const isOverColumn = over
-    ? (id === over.id && active?.data.current?.type !== "container") ||
-      items.includes(over.id.toString())
-    : false;
+  console.log("active", active);
+  console.log("over", over);
+
+  const isOverColumn =
+    hasSortableData(active) && active.data.current.sortable.containerId === id;
 
   return (
     <SortableContext
@@ -31,7 +29,12 @@ export function DroppableColumn({ id, items, children }: Props) {
       items={items}
       strategy={verticalListSortingStrategy}
     >
-      <Column id={id} ref={setNodeRef} isHovering={isOverColumn}>
+      <Column
+        id={id}
+        index={index}
+        ref={setNodeRef}
+        isOverColumn={isOverColumn}
+      >
         {children}
       </Column>
     </SortableContext>
