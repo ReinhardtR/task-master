@@ -3,7 +3,7 @@ import { AuthHeaderSection } from "./AuthHeader";
 
 export function Header() {
   return (
-    <header className="flex justify-center bg-black border-b border-gray-border">
+    <header className="flex justify-center bg-black border-b border-gray-border h-[6vh]">
       <nav className="flex-1 max-w-7xl py-4 flex items-center px-6">
         <Link href="/">
           <p className="text-lg font-medium tracking-wider text-white">

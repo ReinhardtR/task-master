@@ -12,11 +12,19 @@ export const initialBoard = {
     5: { id: 5, title: "Do the dishes" },
     6: { id: 6, title: "Take a shower" },
     7: { id: 7, title: "Go to bed" },
+    8: { id: 8, title: "Go to work" },
+    9: { id: 9, title: "Go to the gym" },
+    10: { id: 10, title: "Go to the store" },
+    11: { id: 11, title: "Go to the bank" },
+    12: { id: 12, title: "Go to the post office" },
+    13: { id: 13, title: "Go to the library" },
+    14: { id: 14, title: "Go to the park" },
+    15: { id: 15, title: "Go to the beach" },
   },
 };
 
 export const initialShape = {
-  "To do": [1, 2, 3, 4],
+  "To do": [1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15],
   "In Progress": [5, 6, 7],
   Done: [],
 };

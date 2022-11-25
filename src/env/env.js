@@ -4,10 +4,8 @@
  * It has to be a `.js`-file to be imported there.
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { z } = require("zod");
 
-/*eslint sort-keys: "error"*/
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
 
