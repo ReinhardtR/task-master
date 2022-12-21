@@ -17,14 +17,7 @@ export const Column = forwardRef<HTMLDivElement, Props>(
         >
           {id}
         </div>
-        <div className="relative flex-1 flex flex-col space-y-2 p-2 max-h-[88vh] overflow-y-auto column">
-          {/* {isOverColumn && (
-            <motion.div
-              layoutId="column-background"
-              transition={{ duration: 0.2 }}
-              className="bg-black/20 absolute inset-0"
-            />
-          )} */}
+        <div className="relative flex-1 flex flex-col space-y-2 p-2 max-h-[88vh] column">
           {children}
         </div>
       </div>

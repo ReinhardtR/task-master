@@ -3,11 +3,5 @@
 @tailwind utilities;
 
 .column::-webkit-scrollbar {
-  width: 8px;
-  scrollbar-gutter: stable;
-}
-
-.column::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #090909;
+  display: none;
 }
