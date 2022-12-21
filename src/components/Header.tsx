@@ -1,5 +1,7 @@
+import { useSideMenuActions, useSideMenuIsOpen } from "@/lib/sidemenu-store";
 import Link from "next/link";
 import { AuthHeaderSection } from "./AuthHeader";
+import { Button } from "./ui/Button";
 
 export function Header() {
   return (

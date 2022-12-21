@@ -45,11 +45,13 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
+    "@radix-ui/colors": "^0.1.8",
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",
     "prisma": "^4.6.1",
     "tailwindcss": "^3.2.4",
-    "tailwindcss-radix": "^2.6.1"
+    "tailwindcss-radix": "^2.6.1",
+    "windy-radix-palette": "^0.3.0"
   }
 }

@@ -15,13 +15,10 @@ type Props = {
 };
 
 export function DroppableColumn({ id, index, items, children }: Props) {
-  const { active, over, setNodeRef } = useSortable({ id });
+  const { setNodeRef, attributes, listeners } = useSortable({ id });
 
-  console.log("active", active);
-  console.log("over", over);
-
-  const isOverColumn =
-    hasSortableData(active) && active.data.current.sortable.containerId === id;
+  // const isOverColumn =
+  //   hasSortableData(active) && active.data.current.sortable.containerId === id;
 
   return (
     <SortableContext
@@ -29,14 +26,19 @@ export function DroppableColumn({ id, index, items, children }: Props) {
       items={items}
       strategy={verticalListSortingStrategy}
     >
-      <Column
-        id={id}
-        index={index}
-        ref={setNodeRef}
-        isOverColumn={isOverColumn}
-      >
-        {children}
-      </Column>
+      <div ref={setNodeRef} className="flex flex-col">
+        <div
+          className="flex px-8 items-center text-white text-xl font-bold w-80 h-[6vh]"
+          style={{ backgroundColor: "blueviolet" }}
+          {...attributes}
+          {...listeners}
+        >
+          {id}
+        </div>
+        <div className="relative flex-1 flex flex-col space-y-2 p-2 max-h-[88vh] overflow-y-auto column">
+          {children}
+        </div>
+      </div>
     </SortableContext>
   );
 }

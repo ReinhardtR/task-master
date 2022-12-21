@@ -4,13 +4,11 @@ import { motion } from "framer-motion";
 
 type Props = {
   id: string;
-  index: number;
-  isOverColumn?: boolean;
   children: React.ReactNode;
 };
 
 export const Column = forwardRef<HTMLDivElement, Props>(
-  ({ id, index, isOverColumn = false, children, ...props }, ref) => {
+  ({ id, children, ...props }, ref) => {
     return (
       <div ref={ref} className="flex flex-col" {...props}>
         <div
