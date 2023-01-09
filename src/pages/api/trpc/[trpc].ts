@@ -1,4 +1,4 @@
-import { env } from "@/env/env";
+import { env } from "@/env/server.mjs";
 import { appRouter } from "@/server/trpc/router/_app";
 import { createContext } from "@/server/trpc/context";
 import { createNextApiHandler } from "@trpc/server/adapters/next";

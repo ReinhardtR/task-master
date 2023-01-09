@@ -1,6 +1,4 @@
-import clsx from "clsx";
-import { forwardRef, Ref } from "react";
-import { motion } from "framer-motion";
+import { forwardRef } from "react";
 
 type Props = {
   id: string;

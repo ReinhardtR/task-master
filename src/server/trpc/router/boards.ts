@@ -1,4 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { BoardSchema } from "@/lib/board-store";
+import { PUSHER_EVENTS } from "@/lib/pusher-events";
+import { sendPusherEvent } from "@/server/pusher/client";
+import { ColumnStatus, PrismaClient } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { protectedProcedure } from "../trpc";
@@ -115,5 +118,115 @@ export const boardsRouter = router({
           message: "Something went wrong",
         });
       }
+    }),
+  createTask: protectedProcedure
+    .input(
+      z.object({
+        boardId: z.string(),
+        name: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const task = await ctx.prisma.task.create({
+        data: {
+          boardId: input.boardId,
+          name: input.name,
+          status: ColumnStatus.BACKLOG,
+          index: 0,
+        },
+      });
+
+      return task;
+    }),
+  findById: protectedProcedure
+    .input(
+      z.object({
+        boardId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const board = await ctx.prisma.board.findFirst({
+        where: {
+          id: input.boardId,
+        },
+        select: {
+          id: true,
+          name: true,
+          createdAt: true,
+          updatedAt: true,
+          team: {
+            select: {
+              members: {
+                select: {
+                  user: {
+                    select: {
+                      name: true,
+                      image: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          tasks: {
+            select: {
+              id: true,
+              name: true,
+              index: true,
+              status: true,
+            },
+          },
+        },
+      });
+
+      if (!board) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Board not found",
+        });
+      }
+
+      return board;
+    }),
+  taskDragged: protectedProcedure
+    .input(
+      z.object({
+        boardId: z.string(),
+        board: BoardSchema,
+        socketId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const tasks = Object.entries(input.board).flatMap(
+        ([columnStatus, tasks]) =>
+          tasks.map((task, index) => ({
+            ...task,
+            status: columnStatus as ColumnStatus,
+            index,
+          }))
+      );
+
+      await Promise.all(
+        tasks.map((task) =>
+          ctx.prisma.task.update({
+            where: {
+              id: task.id,
+            },
+            data: {
+              status: task.status,
+              index: task.index,
+            },
+          })
+        )
+      );
+
+      await sendPusherEvent(
+        PUSHER_EVENTS.BOARD_SHAPE_CHANGED,
+        {
+          boardId: input.boardId,
+          board: input.board,
+        },
+        input.socketId
+      );
     }),
 });

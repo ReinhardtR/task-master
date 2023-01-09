@@ -1,15 +1,13 @@
 import { useSortable } from "@dnd-kit/sortable";
-import clsx from "clsx";
 import { Task } from "./Task";
 import { CSS } from "@dnd-kit/utilities";
-import { UniqueIdentifier } from "@dnd-kit/core";
+import { type Task as TaskType } from "@/lib/board-store";
 
 type Props = {
-  id: UniqueIdentifier;
-  title: string;
+  task: TaskType;
 };
 
-export function DraggableTask({ id, title }: Props) {
+export function DraggableTask({ task }: Props) {
   const {
     attributes,
     listeners,
@@ -17,18 +15,17 @@ export function DraggableTask({ id, title }: Props) {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id });
+  } = useSortable({ id: task.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0 : 1,
+    opacity: isDragging ? 0.5 : 1,
   };
 
   return (
     <Task
-      id={id.toString()}
-      title={title}
+      task={task}
       ref={setNodeRef}
       {...attributes}
       {...listeners}

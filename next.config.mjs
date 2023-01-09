@@ -1,0 +1,10 @@
+// @ts-check
+await import("./src/env/server.mjs");
+
+/** @type {import("next").NextConfig} */
+const config = {
+  reactStrictMode: true,
+  swcMinify: true,
+};
+
+export default config;

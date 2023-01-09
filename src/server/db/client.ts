@@ -1,4 +1,4 @@
-import { env } from "@/env/env";
+import { env } from "@/env/server.mjs";
 import { PrismaClient } from "@prisma/client";
 
 declare global {

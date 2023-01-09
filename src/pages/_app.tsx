@@ -2,11 +2,11 @@ import "@/styles/globals.css";
 
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
-
 import { trpc } from "@/utils/trpc";
 import { SessionProvider } from "next-auth/react";
 import { Header } from "@/components/Header";
 import { Inter } from "@next/font/google";
+import { PusherProvider } from "@/lib/pusher-store";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,9 +19,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <main className={`${inter.variable} font-sans min-w-screen min-h-screen`}>
-        <Component {...pageProps} />
-      </main>
+      <PusherProvider>
+        <main
+          className={`${inter.variable} font-sans min-w-screen min-h-screen`}
+        >
+          <Component {...pageProps} />
+        </main>
+      </PusherProvider>
     </SessionProvider>
   );
 };
